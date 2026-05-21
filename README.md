@@ -21,11 +21,15 @@ This plugin is self-contained and requires no external Python dependencies.
 4. Select the downloaded `.zip` file and click **Install**.
 
 ## Usage
+
 * **Automated Plotting:** Designed for city-scale datasets (e.g., Manchester City Dataset). Select your Building Footprint and Road Network layers. Processes features in highly optimized batches of 5,000, ensuring 100% building coverage via a tiered search radius (12m to 150m).
-Entrance Snapper Tool
+
+**ENTRANCE SNAPPER TOOL**
+
 General:
 
 **Automated Plotting (Inputs):**
+
 The batch processing algorithm requires the following parameters to execute the "Full Coverage" logic:
 
 Building Layer: A polygon vector layer containing building footprints.
@@ -58,6 +62,18 @@ Road Layer: The target infrastructure used to calculate the "longest parallel fa
 
 A new Point Layer will be added to your QGIS project containing the generated entrances, complete with the relational attributes entrance_id, bldg_ref (mapped Building ID), and, optionally, road_ref and road_rank.
 * **Manual Rectifier:** A "human-in-the-loop" tool for complex architectural layouts. Select specific curved road segments and the tool automatically aligns the nearest building entrances to that exact local tangency.
+
+**Known Limitations (Edge Cases Requiring Manual Rectification)**
+
+While the Automated Plotting algorithm achieves a high success rate using Cubed Road-Hierarchy Weighting and Shared-Wall Consensus, certain complex architectural geometries will always require human-in-the-loop intervention via the Manual Rectifier. Users should visually review datasets for the following known architectural restrictions:
+
+Deep Architectural Indents & Courtyards: If a primary entrance is recessed deeply into a building's footprint (e.g., an alcove or U-shaped courtyard), the algorithm will naturally snap to the protruding front-facing walls, as they are mathematically closer to the road vector.
+
+Large Corner Chamfers: On junction plots, buildings often feature large angled corner walls (chamfers). If this chamfer wall is wide enough, the algorithm may favor it over the primary address street, incorrectly placing the entrance on the corner vertex rather than the main facade.
+
+Multi-Frontage Ambiguity: For large commercial or residential blocks bordered by equally ranked roads (e.g., bordered by two 'residential' roads), the algorithm cannot deduce the "true" postal address. It will snap to the facade with the shortest geometric distance, which may occasionally be the rear of the property.
+
+Sweeping Curves & Crescents: On heavily curved roads (cul-de-sacs, crescents), straight-line polygon generalizations of building footprints may cause automated points to drift. The Manual Rectifier is required here to calculate the exact Local Tangency and force perpendicular alignment.
 
 ## License
 This project is licensed under the GNU General Public License v3.0 - see the `LICENSE` file for details.
