@@ -33,7 +33,7 @@ General:
 The batch processing algorithm requires the following parameters to execute the "Full Coverage" logic:
 
 Building Layer: A polygon vector layer containing building footprints.
-Road Layer: A line vector layer representing the transport network, utilized for hierarchy weighting.**(OSM Road network layer prefered since the tool is designed on OSM's Road network Heirarchy logic since its extensively available globally)**
+Road Layer: A line vector layer representing the transport network, utilized for hierarchy weighting. **(OSM Road network layer prefered since the tool is designed on OSM's Road network Heirarchy logic since its extensively available globally)**
 Minimum Area [in Square Meters] (Optional): A numerical filter to exclude minor structures (sheds, outbuildings) from the snapping process.
 Attribute Mapping (Optional): Three dropdowns allow you to map existing Building IDs, Road Names, and Road Hierarchy classifications directly to the newly generated points.
 
